@@ -1,0 +1,43 @@
+.board {
+    display: grid;
+    position: relative;
+    grid-template-columns: calc(.25*var(--tile-size)) calc(8*var(--tile-size));
+}
+
+.tiles {
+    display: grid;
+    grid-template-columns: repeat(8,var(--tile-size));
+    grid-template-rows: repeat(8,var(--tile-size));
+    width: calc(8*var(--tile-size));
+}
+.tile{
+    position: relative;
+}
+.tile--light {
+    background-color: var(--light-tile);
+}
+.tile--dark {
+    background-color: var(--dark-tile);
+}
+.highlight:after {
+    display: block;
+    position: absolute;
+    content: '';
+    width : calc(.5*var(--tile-size));
+    height : calc(.5*var(--tile-size));
+    background: var(--highlight);
+    border-radius: 50%;
+    left: 25%;
+    top: 25%;
+}
+.attacking:after {
+    display: block;
+    position: absolute;
+    content: '';
+    border: 6px solid var(--highlight);
+    width : calc(var(--tile-size) - 12px);
+    height : calc(var(--tile-size) - 12px);
+    border-radius: 50%;
+    left: 0;
+    top: 0;
+}
