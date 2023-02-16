@@ -2,6 +2,7 @@ import './Board.css'
 
 import Ranks from './bits/Ranks'
 import Files from './bits/Files'
+import Pieces from '../Pieces/Pieces'
 
 const Board = () => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -23,10 +24,12 @@ const Board = () => {
                 files.map((file,j) => 
                     <div 
                         key={file+''+rank} 
-                        className={getClassName(7-i,j)}>
+                        className={getClassName(9-i,j)}>
                     </div>
                 ))}
         </div>
+
+        <Pieces/>
 
         <Files files={files}/>
 
