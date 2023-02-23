@@ -26,7 +26,7 @@ const Piece = ({
                     file,
                     rank
                 })
-            dispatch(generateCandidates({piece,file,rank,candidateMoves}))
+            dispatch(generateCandidates({candidateMoves}))
         }
 
     }
