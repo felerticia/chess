@@ -19,10 +19,9 @@ export const reducer = (state, action) => {
         }
 
         case actionTypes.GENERATE_CANDIDATE_MOVES : {
-            const {piece,file,rank,candidateMoves} = action.payload
+            const {candidateMoves} = action.payload
             return {
                 ...state,
-                selectedPiece: {piece,file,rank},
                 candidateMoves
             }
         } 
@@ -30,7 +29,6 @@ export const reducer = (state, action) => {
         case actionTypes.CLEAR_CANDIDATE_MOVES : {
             return {
                 ...state,
-                selectedPiece : {},
                 candidateMoves : []
             }
         }
