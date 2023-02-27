@@ -110,3 +110,42 @@ export const getKingMoves = ({position,piece,rank,file}) => {
     })
     return moves
 }
+
+export const getPawnMoves = ({position,piece,rank,file}) => {
+
+    const moves = []
+    const dir = piece==='wp' ? 1 : -1
+
+    // Move two tiles on first move
+    if (rank % 5 === 1){
+        if (position?.[rank+dir]?.[file] === '' && position?.[rank+dir+dir]?.[file] === ''){
+            moves.push ([rank+dir+dir,file])
+        }
+    }
+
+    // Move one tile
+    if (!position?.[rank+dir]?.[file]){
+        moves.push ([rank+dir,file])
+    }
+
+    return moves
+}
+
+export const getPawnCaptures =  ({position,piece,rank,file}) => {
+
+    const moves = []
+    const dir = piece==='wp' ? 1 : -1
+    const enemy = piece[0] === 'w' ? 'b' : 'w'
+
+    // Capture enemy to left
+    if (position?.[rank+dir]?.[file-1] && position[rank+dir][file-1].startsWith(enemy) ){
+        moves.push ([rank+dir,file-1])
+    }
+
+    // Capture enemy to right
+    if (position?.[rank+dir]?.[file+1] && position[rank+dir][file+1].startsWith(enemy) ){
+        moves.push ([rank+dir,file+1])
+    }
+
+    return moves
+}
