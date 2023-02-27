@@ -31,8 +31,14 @@ const Pieces = () => {
         const [p,rank,file] = e.dataTransfer.getData("text").split(',')
 
         if(appState.candidateMoves.find(m => m[0] === x && m[1] === y)){
+            // EnPassant, looks like capturing an empty cell
+            // Detect and delete the pawn to be removed
+            if (p.endsWith('p') && !newPosition[x][y] && x !== rank && y !== file) 
+                newPosition[rank][y] = ''
+
             newPosition[Number(rank)][Number(file)] = ''
             newPosition[x][y] = p
+
             dispatch(makeNewMove({newPosition}))
         }
         dispatch(clearCandidates())

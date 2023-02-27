@@ -20,8 +20,9 @@ const Piece = ({
 
         if (turn === piece[0]){
             const candidateMoves = 
-                arbiter.getRegularMoves({
+                arbiter.getValidMoves({
                     position : currentPosition[currentPosition.length - 1],
+                    prevPosition : currentPosition[currentPosition.length - 2],
                     piece,
                     file,
                     rank
