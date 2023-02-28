@@ -4,6 +4,8 @@ import { useAppContext }from '../../contexts/Context'
 import Ranks from './bits/Ranks'
 import Files from './bits/Files'
 import Pieces from '../Pieces/Pieces'
+import PromotionBox from '../Popup/PromotionBox/PromotionBox'
+import Popup from '../Popup/Popup'
 
 const Board = () => {
     const ranks = Array(8).fill().map((x,i) => 8-i)
@@ -41,6 +43,10 @@ const Board = () => {
         </div>
 
         <Pieces/>
+
+        <Popup>
+            <PromotionBox />
+        </Popup>
 
         <Files files={files}/>
 

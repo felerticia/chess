@@ -1,0 +1,32 @@
+.popup {
+    right: 0;
+    top: 0;
+    position: absolute;
+    left: calc(.25*var(--tile-size));
+    bottom: calc(.25*var(--tile-size));
+    background: var(--highlight);
+}
+.popup--inner {
+    width: 50%;
+    min-height: 12.5%;
+    background: var(--light-tile);
+    position: absolute;
+    border: 8px solid var(--light-tile);
+    box-shadow: 0 0 0 8px var(--dark-tile)
+}
+.popup--inner__center {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 1em 0;
+}
+
+.popup--inner__center h1 {
+    font-size: 2.5em;
+    margin: 0 0 .5em 0;
+}
+.popup--inner__center p {
+    font-size: 1.2em;
+    margin: 0 0 1em 0;
+}
