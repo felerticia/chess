@@ -65,7 +65,7 @@ const Board = () => {
         <Pieces/>
 
         <Popup>
-            <PromotionBox />
+            
         </Popup>
 
         <Files files={files}/>
