@@ -6,6 +6,7 @@ import Files from './bits/Files'
 import Pieces from '../Pieces/Pieces'
 import PromotionBox from '../Popup/PromotionBox/PromotionBox'
 import Popup from '../Popup/Popup'
+import GameEnds from '../Popup/GameEnds/GameEnds'
 
 import arbiter from '../../arbiter/arbiter'
 import { getKingPosition } from '../../arbiter/getMoves'
@@ -65,7 +66,8 @@ const Board = () => {
         <Pieces/>
 
         <Popup>
-            
+            <PromotionBox />
+            <GameEnds />
         </Popup>
 
         <Files files={files}/>

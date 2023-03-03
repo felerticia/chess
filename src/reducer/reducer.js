@@ -68,7 +68,11 @@ export const reducer = (state, action) => {
                 status : Status.stalemate
             }
         }
-
+        case actionTypes.NEW_GAME : {
+            return {
+                ...action.payload,
+            }
+        }
         default : 
             return state
     }
