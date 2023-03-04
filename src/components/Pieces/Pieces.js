@@ -8,6 +8,7 @@ import { updateCastling, detectStalemate, detectInsufficientMaterial, detectChec
 
 import { makeNewMove, clearCandidates } from '../../reducer/actions/move'
 import arbiter from '../../arbiter/arbiter'
+import { getNewMoveNotation } from '../../helper'
 
 const Pieces = () => {
 
@@ -66,7 +67,15 @@ const Pieces = () => {
                 piece,rank,file,
                 x,y
             })
-            dispatch(makeNewMove({newPosition}))
+            const newMove = getNewMoveNotation({
+                piece,
+                rank,
+                file,
+                x,
+                y,
+                position:currentPosition,
+            })
+            dispatch(makeNewMove({newPosition,newMove}))
 
             if (arbiter.insufficientMaterial(newPosition))
                 dispatch(detectInsufficientMaterial())
