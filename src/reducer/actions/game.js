@@ -20,7 +20,7 @@ export const detectInsufficientMaterial = () => {
     }
 }
 
-export const detectCheckmate = (winner) => {
+export const detectCheckmate = winner => {
     return {
         type: actionTypes.WIN,
         payload : winner

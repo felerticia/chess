@@ -1,5 +1,5 @@
 .wins {
-    height: 100px;
+    height: var(--tile-size);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -7,9 +7,9 @@
 .wins.White {background-image: url('../../../assets/wk.png');}
 .wins.Black {background-image: url('../../../assets/bk.png');}
 .draws {
-    height: 100px;
+    height: var(--tile-size);
     background-size: contain;
-    background-image: url('../../../assets/wk.png'), url('../../../assets/bk.png');
     background-repeat: no-repeat, no-repeat;
     background-position: 35% center,65% center;
+    background-image: url('../../../assets/wk.png'),url('../../../assets/bk.png')
 }
