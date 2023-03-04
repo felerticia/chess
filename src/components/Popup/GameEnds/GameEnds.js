@@ -11,7 +11,6 @@ const GameEnds = ({onClosePopup}) => {
         return null
 
     const newGame = () => {
-        onClosePopup()
         dispatch(setupNewGame())
     }
 
