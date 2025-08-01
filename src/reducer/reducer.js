@@ -3,8 +3,8 @@ import actionTypes from "./actionTypes";
 export const reducer = (state, action) => {
 
     switch (action.type) {
-        case actionTypes.NEW_MOVE : {
-            let {position,movesList,turn} = state 
+        case actionTypes.NEW_MOVE: {
+            let { position, movesList, turn, castleDirection, castleDirectionHistory } = state
             position = [
                 ...position,
                 action.payload.newPosition
@@ -14,90 +14,100 @@ export const reducer = (state, action) => {
                 action.payload.newMove
             ]
             turn = turn === 'w' ? 'b' : 'w'
+            castleDirectionHistory = [
+                ...castleDirectionHistory,
+                { ...castleDirection }  // deep enough for this structure
+            ]
 
             return {
                 ...state,
                 position,
                 movesList,
                 turn,
+                castleDirectionHistory,
             }
         }
 
-        case actionTypes.GENERATE_CANDIDATE_MOVES : {
-            const {candidateMoves} = action.payload
+        case actionTypes.GENERATE_CANDIDATE_MOVES: {
+            const { candidateMoves } = action.payload
             return {
                 ...state,
                 candidateMoves
             }
-        } 
-
-        case actionTypes.CLEAR_CANDIDATE_MOVES : {
-            return {
-                ...state,
-                candidateMoves : []
-            }
         }
-    
-        case actionTypes.PROMOTION_OPEN : {
+
+        case actionTypes.CLEAR_CANDIDATE_MOVES: {
             return {
                 ...state,
-                status : Status.promoting,
-                promotionSquare : {...action.payload},
+                candidateMoves: []
             }
         }
 
-        case actionTypes.PROMOTION_CLOSE : {
+        case actionTypes.PROMOTION_OPEN: {
             return {
                 ...state,
-                status : Status.ongoing,
-                promotionSquare : null,
+                status: Status.promoting,
+                promotionSquare: { ...action.payload },
             }
         }
 
-        case actionTypes.CAN_CASTLE : {
-            let {turn,castleDirection} = state 
-        
-            castleDirection[turn] = action.payload
-            
+        case actionTypes.PROMOTION_CLOSE: {
             return {
                 ...state,
-                castleDirection,
-            }
-        }
-        
-        case actionTypes.STALEMATE : {
-            return {
-                ...state,
-                status : Status.stalemate
+                status: Status.ongoing,
+                promotionSquare: null,
             }
         }
 
-        case actionTypes.INSUFFICIENT_MATERIAL : {
+        case actionTypes.CAN_CASTLE: {
+            let { turn, castleDirection } = state
+
+            const newCastleDirection = {
+                ...castleDirection,
+                [turn]: action.payload
+            }
+
             return {
                 ...state,
-                status : Status.insufficient
+                castleDirection: newCastleDirection,
             }
         }
 
-        case actionTypes.WIN : {
+        case actionTypes.STALEMATE: {
             return {
                 ...state,
-                status : action.payload === 'w' ? Status.white : Status.black
+                status: Status.stalemate
             }
         }
-         
-        case actionTypes.NEW_GAME : {
+
+        case actionTypes.INSUFFICIENT_MATERIAL: {
+            return {
+                ...state,
+                status: Status.insufficient
+            }
+        }
+
+        case actionTypes.WIN: {
+            return {
+                ...state,
+                status: action.payload === 'w' ? Status.white : Status.black
+            }
+        }
+
+        case actionTypes.NEW_GAME: {
             return {
                 ...action.payload,
             }
         }
 
-        case actionTypes.TAKE_BACK : {
-            let {position,movesList,turn} = state 
-            if (position.length > 1){
-                position = position.slice(0,position.length-1)
-                movesList = movesList.slice(0,movesList.length-1)
+        case actionTypes.TAKE_BACK: {
+            let { position, movesList, turn, castleDirection, castleDirectionHistory } = state
+            if (position.length > 1) {
+                position = position.slice(0, position.length - 1)
+                movesList = movesList.slice(0, movesList.length - 1)
                 turn = turn === 'w' ? 'b' : 'w'
+                castleDirectionHistory = castleDirectionHistory.slice(0, castleDirectionHistory.length - 1);
+                castleDirection = castleDirectionHistory[castleDirectionHistory.length - 1];
             }
 
             return {
@@ -105,10 +115,12 @@ export const reducer = (state, action) => {
                 position,
                 movesList,
                 turn,
+                castleDirection,
+                castleDirectionHistory,
             }
         }
 
-        default : 
+        default:
             return state
     }
 };
